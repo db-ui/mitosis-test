@@ -4,6 +4,7 @@ import { DBButton } from "../../../output/vue/vue3/src";
 
 <template>
   <div>
-    <DBButton text="Test" variant="primary" />
+    <DBButton variant="primary">Test</DBButton>
+    <DBButton text="Test" />
   </div>
 </template>

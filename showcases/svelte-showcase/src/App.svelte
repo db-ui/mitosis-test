@@ -4,6 +4,7 @@
 
 <main>
   <div>
-    <DBButton text="Test" variant="primary" />
+    <DBButton variant="primary">Test</DBButton>
+    <DBButton text="Test" />
   </div>
 </main>
