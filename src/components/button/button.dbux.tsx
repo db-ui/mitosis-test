@@ -6,6 +6,17 @@ import "@db-ui/core/dist/css/01-elements/buttons/button.css";
 
 useMetadata({
   isAttachedToShadowDom: true,
+  powerAppProperties: [
+    { name: "text", type: "SingleLine.Text" },
+    {
+      name: "variant",
+      type: "Enum",
+      values: [
+        { key: "Default", name: "Default", value: "_" },
+        { key: "Primary", name: "Primary", value: "primary" },
+      ],
+    },
+  ],
 });
 
 export default function DBButton(props: DBButtonProps & DBButtonWcProps) {
