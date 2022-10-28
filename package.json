@@ -26,6 +26,7 @@
     "@builder.io/eslint-plugin-mitosis": "^0.0.10",
     "eslint": "^8.17.0",
     "fs-extra": "^10.1.0",
+    "hygen": "^6.2.11",
     "lit": "^2.3.1",
     "prettier": "^2.5.0",
     "replace-in-file": "^6.3.5",
