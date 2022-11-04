@@ -15,6 +15,15 @@ module.exports = () => {
             if (line.includes("selector:") && !input.includes("styleUrls:")) {
               return `${line}\n  styleUrls:['./${component.name}.css'],`;
             }
+            if (line.includes(": ElementRef")) {
+              return line.replace(": ElementRef", ": ElementRef | undefined");
+            }
+            if (line.includes("inputRef.nativeElement")) {
+              return line.replace(
+                "inputRef.nativeElement",
+                "inputRef?.nativeElement"
+              );
+            }
             return line;
           })
           .join("\n"),

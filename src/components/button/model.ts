@@ -13,4 +13,5 @@ export type DBButtonProps = DBButtonDefaultProps & DBButtonWcProps;
 
 export interface DBButtonState {
   stylePath?: string;
+  makeAlert: () => void;
 }

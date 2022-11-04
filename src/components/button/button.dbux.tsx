@@ -30,7 +30,11 @@ useMetadata({
 });
 
 export default function DBButton(props: DBButtonProps) {
-  const state = useStore<DBButtonState>({});
+  const state = useStore<DBButtonState>({
+    makeAlert() {
+      alert(`Button: ${props.text} works.`);
+    },
+  });
 
   onMount(() => {
     if (props.stylePath) {
@@ -42,9 +46,7 @@ export default function DBButton(props: DBButtonProps) {
     <button
       class="elm-button"
       data-variant={props.variant}
-      onClick={() => {
-        alert(`Button: ${props.text} works.`);
-      }}
+      onClick={() => state.makeAlert()}
     >
       <Show when={state.stylePath}>
         <link rel="stylesheet" href={state.stylePath} />
@@ -52,7 +54,8 @@ export default function DBButton(props: DBButtonProps) {
       <Show when={props.icon}>
         <DBIcon icon={props.icon} />
       </Show>
-      <Show when={props.text}> {props.text}</Show>
+      {/* we need spacings around props.text for compilation */}
+      <Show when={props.text}> {props.text} </Show>
       {props.children}
     </button>
   );

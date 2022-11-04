@@ -9,13 +9,13 @@ const updateNestedComponents = (input, rootComponentName, powerAppsFolder) => {
   Components.filter((nComp) => nComp.name !== rootComponentName).forEach(
     (nestedComponent) => {
       if (input.includes(`"../${nestedComponent.name}"`)) {
-        fileContent = fileContent.replace(`"./${nestedComponent.name}"`)
+        fileContent = fileContent.replace(`"./${nestedComponent.name}"`);
 
-      /*  Fse.copySync(
+        Fse.copySync(
           `./output/react/src/components/${nestedComponent.name}`,
           `./output/power-apps/${rootComponentName}/${powerAppsFolder}/${nestedComponent.name}`,
           { overwrite: true }
-        );*/
+        );
       }
     }
   );
@@ -29,21 +29,22 @@ module.exports = () => {
       const powerAppsFolder = `DB${component.name[0].toUpperCase()}${component.name.slice(
         1
       )}`;
+      const cleanName = component.name.replace("-", "");
       const files = [`${component.name}.tsx`, "model.ts"];
 
       Replace.sync({
         files: `./output/react/src/components/${component.name}/${component.name}.tsx`,
         processor: (input) => {
-          return updateNestedComponents(input, component.name, powerAppsFolder);
+          return updateNestedComponents(input, cleanName, powerAppsFolder);
         },
       });
 
-      Fse.removeSync(`./output/power-apps/${component.name}/node_modules`);
+      Fse.removeSync(`./output/power-apps/${cleanName}/node_modules`);
 
       files.forEach((file) => {
         copyFile(
           `../../output/react/src/components/${component.name}/${file}`,
-          `../../output/power-apps/${component.name}/${powerAppsFolder}/${file}`
+          `../../output/power-apps/${cleanName}/${powerAppsFolder}/${file}`
         );
       });
     } catch (error) {
