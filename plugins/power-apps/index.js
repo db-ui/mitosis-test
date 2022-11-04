@@ -3,19 +3,24 @@ const ChildProcess = require("child_process");
 module.exports = () => ({
   json: {
     post: (json) => {
-      console.log(json)
-      const props = json.meta?.useMetadata?.powerAppProperties;
+      const component = json.meta?.useMetadata?.component;
       let propsCliString = "";
-      if (props?.length > 0) {
-        const propsString = JSON.stringify(props);
-        const propsBuffer = Buffer.from(propsString).toString("base64");
-        propsCliString = `--props ${propsBuffer}`;
+      let includeIconCliString = "";
+      if (component) {
+        if (component.properties) {
+          const propsString = JSON.stringify(component.properties);
+          const propsBuffer = Buffer.from(propsString).toString("base64");
+          propsCliString = `--props ${propsBuffer}`;
+        }
+        if (component.includeIcon) {
+          includeIconCliString = `--includeIcon true`;
+        }
       }
       // TODO: Make Version dynamic
       ChildProcess.execSync(
         `hygen power-apps new --version 1.0.0 ${json.name
           .replace("DB", "")
-          .toLowerCase()} ${propsCliString}`
+          .toLowerCase()} ${propsCliString} ${includeIconCliString}`
       );
       return json;
     },

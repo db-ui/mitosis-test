@@ -1,10 +1,13 @@
 <script>
   import DBButton from "../../../output/svelte/src/components/button/button.svelte";
+  import DBIcon from "../../../output/svelte/src/components/icon/icon.svelte";
 </script>
 
 <main>
-  <div>
+  <h1>Svelte</h1>
+  <div style="display: flex; gap: 4px; align-items: center">
     <DBButton variant="primary">Test</DBButton>
-    <DBButton text="Test" />
+    <DBButton text="Test" icon="account" />
+    <DBIcon icon="account" />
   </div>
 </main>

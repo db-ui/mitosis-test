@@ -6,6 +6,6 @@ module.exports = [
   },
   {
     name: "icon",
-    defaultStylePath: "",
+    defaultStylePath: "https://cdn.jsdelivr.net/npm/@db-ui/core/dist/css/00-base/icons/enterprise/icons.css",
   },
 ];

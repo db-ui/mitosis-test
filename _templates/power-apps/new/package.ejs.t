@@ -31,6 +31,8 @@ force: true
     "eslint-plugin-promise": "^5.1.0",
     "pcf-scripts": "^1",
     "pcf-start": "^1",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
     "typescript": "^4.3"
   }
 }

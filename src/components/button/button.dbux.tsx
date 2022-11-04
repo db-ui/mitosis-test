@@ -1,28 +1,36 @@
 import { onMount, Show, useMetadata, useStore } from "@builder.io/mitosis";
-import { DBButtonProps, DBButtonState, DBButtonWcProps } from "./model";
-import "@db-ui/core/dist/css/db-ui-core.vars.css";
-import "@db-ui/core/dist/css/db-ui-core.general.css";
+import { DBButtonProps, DBButtonState } from "./model";
 import "@db-ui/core/dist/css/01-elements/buttons/button.css";
+import { DBIcon } from "../icon";
 
 useMetadata({
   isAttachedToShadowDom: true,
-  powerAppProperties: [
-    { name: "text", type: "SingleLine.Text" },
-    {
-      name: "variant",
-      type: "Enum",
-      values: [
-        { key: "Default", name: "Default", value: "_" },
-        { key: "Primary", name: "Primary", value: "primary" },
-      ],
-    },
-  ],
+  component: {
+    includeIcon: true,
+    properties: [
+      { name: "text", type: "SingleLine.Text" },
+      {
+        name: "variant",
+        type: "Enum",
+        values: [
+          { key: "Default", name: "Default", value: "_" },
+          { key: "Primary", name: "Primary", value: "primary" },
+        ],
+      },
+      {
+        name: "icon",
+        type: "Enum",
+        values: [
+          { key: "None", name: "None", value: "_" },
+          { key: "Account", name: "Account", value: "account" },
+        ],
+      },
+    ],
+  },
 });
 
-export default function DBButton(props: DBButtonProps & DBButtonWcProps) {
-  const state = useStore<DBButtonState>({
-    stylePath: "",
-  });
+export default function DBButton(props: DBButtonProps) {
+  const state = useStore<DBButtonState>({});
 
   onMount(() => {
     if (props.stylePath) {
@@ -31,9 +39,18 @@ export default function DBButton(props: DBButtonProps & DBButtonWcProps) {
   });
 
   return (
-    <button class="elm-button" data-variant={props.variant}>
+    <button
+      class="elm-button"
+      data-variant={props.variant}
+      onClick={() => {
+        alert(`Button: ${props.text} works.`);
+      }}
+    >
       <Show when={state.stylePath}>
         <link rel="stylesheet" href={state.stylePath} />
+      </Show>
+      <Show when={props.icon}>
+        <DBIcon icon={props.icon} />
       </Show>
       <Show when={props.text}> {props.text}</Show>
       {props.children}

@@ -12,7 +12,7 @@
     "build": "mitosis build",
     "postbuild": "node scripts/post-build/index.js",
     "prestart": "npm run build",
-    "start": "watch \"npm run build\" ./src ./overrides"
+    "start": "watch \"npm run build\" ./src ./overrides ./scripts/post-build"
   },
   "author": "",
   "license": "ISC",

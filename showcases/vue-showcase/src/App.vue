@@ -1,10 +1,14 @@
 <script setup>
-import { DBButton } from "../../../output/vue/vue3/src";
+import { DBButton, DBIcon } from "../../../output/vue/vue3/src";
 </script>
 
 <template>
-  <div>
-    <DBButton variant="primary">Test</DBButton>
-    <DBButton text="Test" />
-  </div>
+  <main>
+    <h1>Vue</h1>
+    <div style="display: flex; gap: 4px; align-items: center">
+      <DBButton variant="primary">Test</DBButton>
+      <DBButton text="Test" icon="account" />
+      <DBIcon icon="account" />
+    </div>
+  </main>
 </template>

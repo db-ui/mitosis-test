@@ -1,6 +1,5 @@
 const Replace = require("replace-in-file");
-const Fs = require("fs");
-const Path = require("path");
+const { copyFile } = require("../utils");
 
 const Components = require("./components");
 
@@ -24,25 +23,10 @@ module.exports = () => {
     try {
       Replace.sync(options);
 
-      if (
-        Fs.existsSync(
-          Path.join(
-            __dirname,
-            `../../src/components/${component.name}/${component.name}.css`
-          )
-        )
-      ) {
-        const oldPath = Path.join(
-          __dirname,
-          `../../src/components/${component.name}/${component.name}.css`
-        );
-        const newPath = Path.join(
-          __dirname,
-          `../../output/angular/src/components/${component.name}/${component.name}.css`
-        );
-
-        Fs.copyFileSync(oldPath, newPath);
-      }
+      copyFile(
+        `../../src/components/${component.name}/${component.name}.css`,
+        `../../output/angular/src/components/${component.name}/${component.name}.css`
+      );
     } catch (error) {
       console.error("Error occurred:", error);
     }

@@ -1,11 +1,15 @@
-import { DBButton } from "../../../output/react/src/";
+import { DBButton, DBIcon } from "../../../output/react/src/";
 
 function App() {
   return (
-    <div>
-      <DBButton variant="primary">Test</DBButton>
-      <DBButton text="Test" />
-    </div>
+    <main>
+      <h1>React</h1>
+      <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+        <DBButton variant="primary">Test</DBButton>
+        <DBButton text="Test" icon="account" />
+        <DBIcon icon="account" />
+      </div>
+    </main>
   );
 }
 
