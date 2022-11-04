@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { DBButton } from "../output/src";
+import { DBButton, DBIcon } from "../output/src";
 
 const Home: NextPage = () => {
   return (
@@ -12,8 +12,12 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <DBButton variant="primary">Test</DBButton>
-        <DBButton text="Test" />
+        <h1>Next</h1>
+        <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+          <DBButton variant="primary">Test</DBButton>
+          <DBButton text="Test" icon="account" />
+          <DBIcon icon="account" />
+        </div>
       </main>
     </div>
   );

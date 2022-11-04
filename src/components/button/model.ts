@@ -1,5 +1,6 @@
-export interface DBButtonProps {
+export interface DBButtonDefaultProps {
   text?: string;
+  icon?: string;
   variant?: string;
   children?: any;
 }
@@ -7,6 +8,8 @@ export interface DBButtonProps {
 export interface DBButtonWcProps {
   stylePath?: string;
 }
+
+export type DBButtonProps = DBButtonDefaultProps & DBButtonWcProps;
 
 export interface DBButtonState {
   stylePath?: string;

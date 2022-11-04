@@ -1,7 +1,27 @@
-const Fs = require("fs");
-const Path = require("path");
+const Fse = require("fs-extra");
+const { copyFile } = require("../utils");
 
 const Components = require("./components");
+const Replace = require("replace-in-file");
+
+const updateNestedComponents = (input, rootComponentName, powerAppsFolder) => {
+  let fileContent = input;
+  Components.filter((nComp) => nComp.name !== rootComponentName).forEach(
+    (nestedComponent) => {
+      if (input.includes(`"../${nestedComponent.name}"`)) {
+        fileContent = fileContent.replace(`"./${nestedComponent.name}"`)
+
+      /*  Fse.copySync(
+          `./output/react/src/components/${nestedComponent.name}`,
+          `./output/power-apps/${rootComponentName}/${powerAppsFolder}/${nestedComponent.name}`,
+          { overwrite: true }
+        );*/
+      }
+    }
+  );
+
+  return fileContent;
+};
 
 module.exports = () => {
   Components.forEach((component) => {
@@ -11,26 +31,20 @@ module.exports = () => {
       )}`;
       const files = [`${component.name}.tsx`, "model.ts"];
 
-      files.forEach((file) => {
-        if (
-          Fs.existsSync(
-            Path.join(
-              __dirname,
-              `../../output/react/src/components/${component.name}/${file}`
-            )
-          )
-        ) {
-          const oldPath = Path.join(
-            __dirname,
-            `../../output/react/src/components/${component.name}/${file}`
-          );
-          const newPath = Path.join(
-            __dirname,
-            `../../output/power-apps/${component.name}/${powerAppsFolder}/${file}`
-          );
+      Replace.sync({
+        files: `./output/react/src/components/${component.name}/${component.name}.tsx`,
+        processor: (input) => {
+          return updateNestedComponents(input, component.name, powerAppsFolder);
+        },
+      });
 
-          Fs.copyFileSync(oldPath, newPath);
-        }
+      Fse.removeSync(`./output/power-apps/${component.name}/node_modules`);
+
+      files.forEach((file) => {
+        copyFile(
+          `../../output/react/src/components/${component.name}/${file}`,
+          `../../output/power-apps/${component.name}/${powerAppsFolder}/${file}`
+        );
       });
     } catch (error) {
       console.error("Error occurred:", error);

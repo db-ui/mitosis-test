@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { DBIconState, DBIconWcProps, DBIconProps } from "./model";
-import "@db-ui/core/dist/css/db-ui-core.vars.css";
-import "@db-ui/core/dist/css/db-ui-core.general.css";
+import { DBIconState, DBIconProps } from "./model";
 
-export default function DBIcon(props: DBIconProps & DBIconWcProps) {
-  const [stylePath, setStylePath] = useState(() => "");
+export default function DBIcon(props: DBIconProps) {
+  const [stylePath, setStylePath] = useState(() => null);
 
   useEffect(() => {
     if (props.stylePath) {
