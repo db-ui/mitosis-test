@@ -6,6 +6,19 @@ import { DBTab } from "../tab";
 import { DBTabProps } from "../tab/model";
 
 export default function DBTabBar(props: DBTabBarProps) {
+  function convertTabs(tabs) {
+    try {
+      if (typeof tabs === "string") {
+        return JSON.parse(tabs);
+      } else {
+        return tabs;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return undefined;
+  }
+
   const [stylePath, setStylePath] = useState(() => null);
 
   useEffect(() => {
@@ -24,7 +37,7 @@ export default function DBTabBar(props: DBTabBarProps) {
 
       {props.tabs ? (
         <>
-          {props.tabs?.map((tab) => (
+          {convertTabs(props.tabs)?.map((tab) => (
             <DBTab
               key={tab.name}
               name={tab.name}

@@ -37,7 +37,7 @@ module.exports = {
           );
         },
       },
-      //plugins: [Debug],
+      // plugins: [Debug],
     },
   },
   extension: "dbux.tsx",

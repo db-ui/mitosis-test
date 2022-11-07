@@ -22,10 +22,17 @@ const updateNestedComponents = (input, rootComponentName) => {
           `import "../${nestedComponent.name}/${nestedComponent.name}";`
         );
 
-        while (fileContent.includes(`DB${nCompUpperCase}`)) {
+        while (
+          fileContent.includes(`<DB${nCompUpperCase}`) |
+          fileContent.includes(`</DB${nCompUpperCase}`)
+        ) {
           fileContent = fileContent.replace(
-            `DB${nCompUpperCase}`,
-            `db-${nestedComponent.name}`
+            `<DB${nCompUpperCase}`,
+            `<db-${nestedComponent.name}`
+          );
+          fileContent = fileContent.replace(
+            `</DB${nCompUpperCase}`,
+            `</db-${nestedComponent.name}`
           );
         }
       }
@@ -51,7 +58,7 @@ module.exports = () => {
     const defaultStyleUrl = {
       files: `./output/webcomponent/src/components/${component.name}/${component.name}.ts`,
       from: "this.state = {",
-      to: `this.state = {stylePath: "${component.defaultStylePath}"`,
+      to: `this.state = {stylePath: "${component.defaultStylePath}",`,
     };
 
     try {

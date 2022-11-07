@@ -8,12 +8,33 @@ useMetadata({
   isAttachedToShadowDom: true,
   component: {
     includeIcon: false,
-    properties: [],
+    properties: [
+      { name: "name", type: "SingleLine.Text" },
+      {
+        name: "tabs",
+        type: "Enum",
+        values: [{ key: "TODO", name: "TODO", value: "TODO" }],
+      },
+    ],
   },
 });
 
 export default function DBTabBar(props: DBTabBarProps) {
-  const state = useStore<DBTabBarState>({});
+  const state = useStore<DBTabBarState>({
+    convertTabs(tabs: DBTabProps[] | string | undefined) {
+      try {
+        if (typeof tabs === "string") {
+          return JSON.parse(tabs);
+        } else {
+          return tabs;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      return undefined;
+    },
+  });
 
   onMount(() => {
     if (props.stylePath) {
@@ -28,7 +49,7 @@ export default function DBTabBar(props: DBTabBarProps) {
       </Show>
 
       <Show when={props.tabs}>
-        <For each={props.tabs}>
+        <For each={state.convertTabs(props.tabs)}>
           {(tab: DBTabProps) => (
             <DBTab
               key={tab.name}
