@@ -9,6 +9,7 @@
     "dist/"
   ],
   "scripts": {
+    "generate:component": "hygen mitosis new",
     "build": "mitosis build",
     "postbuild": "node scripts/post-build/index.js",
     "prestart": "npm run build",

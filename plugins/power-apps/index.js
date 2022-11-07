@@ -20,7 +20,7 @@ module.exports = () => ({
       ChildProcess.execSync(
         `hygen power-apps new --version 1.0.0 ${json.name
           .replace("DB", "")
-          .toLowerCase()} ${propsCliString} ${includeIconCliString}`
+          .toLowerCase()} ${includeIconCliString} ${propsCliString} `
       );
       return json;
     },

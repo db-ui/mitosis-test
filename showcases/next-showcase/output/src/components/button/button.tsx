@@ -5,6 +5,10 @@ import "@db-ui/core/dist/css/01-elements/buttons/button.css";
 import { DBIcon } from "../icon";
 
 export default function DBButton(props: DBButtonProps) {
+  function makeAlert() {
+    alert(`Button: ${props.text} works.`);
+  }
+
   const [stylePath, setStylePath] = useState(() => null);
 
   useEffect(() => {
@@ -17,9 +21,7 @@ export default function DBButton(props: DBButtonProps) {
     <button
       className="elm-button"
       data-variant={props.variant}
-      onClick={(event) => {
-        alert(`Button: ${props.text} works.`);
-      }}
+      onClick={(event) => makeAlert()}
     >
       {stylePath ? (
         <>
