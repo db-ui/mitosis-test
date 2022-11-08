@@ -13,7 +13,7 @@ const updateNestedComponents = (input, rootComponentName, powerAppsFolder) => {
 
         Fse.copySync(
           `./output/react/src/components/${nestedComponent.name}`,
-          `./output/power-apps/${rootComponentName}/${powerAppsFolder}/${nestedComponent.name}`,
+          `./output/power-apps/${rootComponentName}/${nestedComponent.name}`,
           { overwrite: true }
         );
       }
